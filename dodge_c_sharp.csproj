@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -49,16 +48,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectionType.cs" />
-    <Compile Include="Down.cs" />
-    <Compile Include="EnumerationBase.cs" />
-    <Compile Include="IDirection.cs" />
-    <Compile Include="Left.cs" />
+    <Compile Include="Direction\DirectionType.cs" />
+    <Compile Include="Direction\Down.cs" />
+    <Compile Include="Direction\EnumerationBase.cs" />
+    <Compile Include="Direction\IDirection.cs" />
+    <Compile Include="Direction\Left.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Right.cs" />
-    <Compile Include="UiDirection.cs" />
-    <Compile Include="Up.cs" />
+    <Compile Include="Direction\Right.cs" />
+    <Compile Include="Direction\UiDirection.cs" />
+    <Compile Include="Direction\Up.cs" />
+    <Folder Include="Direction\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
