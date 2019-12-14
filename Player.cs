@@ -25,14 +25,11 @@ public class Player : Area2D
     {
         var velocity = new Vector2(); // The player's movement vector.
 
-        List<string> ui_dir = new List<string> { "ui_right", "ui_left", "ui_down", "ui_up" };
-
-        if (ui_dir.Exists(d => Input.IsActionPressed(d)))
-        {
-            ui_dir
-               .FindAll(d => Input.IsActionPressed(d))
-               .ForEach(dir => velocity = DirectionType.ToDirection(dir).Move(velocity));
-        }
+        DirectionType
+        .GetAll<DirectionType>()
+        .ToList()
+        .FindAll(d => Input.IsActionPressed(d.UiDirection))
+        .ForEach(dir => velocity = dir.Direction.Move(velocity));
 
         var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
