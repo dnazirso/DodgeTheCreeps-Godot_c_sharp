@@ -4,9 +4,10 @@ namespace Direction
 {
     public class Left : IDirection
     {
-        public void Move(Vector2 position)
+        public Vector2 Move(Vector2 position)
         {
-            position.x += 1;
+            position.x -= 1;
+            return position;
         }
     }
 }

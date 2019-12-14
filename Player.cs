@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Linq;
 using Direction;
+using System.Collections.Generic;
 
 public class Player : Area2D
 {
@@ -14,46 +16,24 @@ public class Player : Area2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Hide();
         _screenSize = GetViewport().GetSize();
     }
-
-    // public override void _Input(InputEvent @event)
-    // {
-    //     var acts = @event.GetName();
-    // }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         var velocity = new Vector2(); // The player's movement vector.
 
-        var ev = Input.Singleton as InputEventAction;
+        List<string> ui_dir = new List<string> { "ui_right", "ui_left", "ui_down", "ui_up" };
 
-        if (Input.IsActionPressed("ui_right"))
+        if (ui_dir.Exists(d => Input.IsActionPressed(d)))
         {
-            velocity.x += 1;
+            ui_dir
+               .FindAll(d => Input.IsActionPressed(d))
+               .ForEach(dir => velocity = DirectionType.ToDirection(dir).Move(velocity));
         }
 
-        if (Input.IsActionPressed("ui_left"))
-        {
-            velocity.x -= 1;
-        }
-
-        if (Input.IsActionPressed("ui_down"))
-        {
-            velocity.y += 1;
-        }
-
-        if (Input.IsActionPressed("ui_up"))
-        {
-            velocity.y -= 1;
-        }
-
-        if (ev != null)
-        {
-            var dirtyp = DirectionType.ToDirection(ev.Action);
-            dirtyp.Move(velocity);
-        }
         var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         if (velocity.Length() > 0)
@@ -71,5 +51,21 @@ public class Player : Area2D
             x: Mathf.Clamp(Position.x, 0, _screenSize.x),
             y: Mathf.Clamp(Position.y, 0, _screenSize.y)
         );
+
+        if (velocity.x != 0)
+        {
+            animatedSprite.Animation = "right";
+        }
+
+        if (velocity.y != 0)
+        {
+            animatedSprite.Animation = "up";
+        }
+
+        if (velocity.x != 0 || velocity.y != 0)
+        {
+            animatedSprite.FlipV = velocity.y > 0;
+            animatedSprite.FlipH = velocity.x < 0;
+        }
     }
 }

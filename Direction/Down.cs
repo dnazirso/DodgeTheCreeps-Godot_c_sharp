@@ -4,9 +4,10 @@ namespace Direction
 {
     public class Down : IDirection
     {
-        public void Move(Vector2 position)
+        public Vector2 Move(Vector2 position)
         {
-            position.y -= 1;
+            position.y += 1;
+            return position;
         }
     }
 }
