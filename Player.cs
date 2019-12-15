@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class Player : Area2D
 {
+    [Signal]
+    public delegate void Hit();
+
     [Export]
     // How fast the player will move (pixels/sec).
     public int Speed = 400;
@@ -49,14 +52,14 @@ public class Player : Area2D
             y: Mathf.Clamp(Position.y, 0, _screenSize.y)
         );
 
-        if (velocity.x != 0)
-        {
-            animatedSprite.Animation = "right";
-        }
-
         if (velocity.y != 0)
         {
             animatedSprite.Animation = "up";
+        }
+
+        if (velocity.x != 0)
+        {
+            animatedSprite.Animation = "right";
         }
 
         if (velocity.x != 0 || velocity.y != 0)
