@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +54,9 @@
     <Compile Include="Direction\EnumerationBase.cs" />
     <Compile Include="Direction\IDirection.cs" />
     <Compile Include="Direction\Left.cs" />
+    <Compile Include="HUD.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Mob.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Direction\Right.cs" />

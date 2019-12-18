@@ -1,8 +1,6 @@
 using Godot;
-using System;
 using System.Linq;
 using Direction;
-using System.Collections.Generic;
 
 public class Player : Area2D
 {
@@ -19,8 +17,10 @@ public class Player : Area2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        // Hide();
+        Hide();
         _screenSize = GetViewport().GetSize();
+
+        Connect("body_entered", this, nameof(OnPlayerBodyEntered));
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,5 +67,19 @@ public class Player : Area2D
             animatedSprite.FlipV = velocity.y > 0;
             animatedSprite.FlipH = velocity.x < 0;
         }
+    }
+
+    public void Start(Vector2 pos)
+    {
+        Position = pos;
+        Show();
+        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+    }
+
+    public void OnPlayerBodyEntered(PhysicsBody2D body)
+    {
+        Hide(); // Player disappears after being hit.
+        EmitSignal("Hit");
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
     }
 }

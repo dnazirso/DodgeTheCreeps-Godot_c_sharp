@@ -24,6 +24,7 @@ radius = 27.1564
 height = 13.4181
 
 [node name="Player" type="Area2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

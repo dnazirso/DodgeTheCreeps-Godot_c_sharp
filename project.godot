@@ -16,7 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="dodge_c_sharp"
-config/icon="res://icon.png"
+run/main_scene="res://Main.tscn"
+config/icon="res://art/playerGrey_up1.png"
 
 [display]
 
