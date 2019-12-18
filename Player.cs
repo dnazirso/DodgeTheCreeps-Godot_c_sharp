@@ -14,6 +14,9 @@ public class Player : Area2D
     // Size of the game window.
     private Vector2 _screenSize;
 
+    // This variable hold the clicked position.
+    Vector2 _target = new Vector2();
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -23,16 +26,34 @@ public class Player : Area2D
         Connect("body_entered", this, nameof(OnPlayerBodyEntered));
     }
 
+    // Called whenever an input happens
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventScreenTouch ev && ev.Pressed)
+        {
+            _target = ev.Position;
+        }
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         var velocity = new Vector2(); // The player's movement vector.
 
-        DirectionType
-        .GetAll<DirectionType>()
-        .ToList()
-        .FindAll(d => Input.IsActionPressed(d.UiDirection))
-        .ForEach(dir => velocity = dir.Direction.Move(velocity));
+        // DirectionType
+        // .GetAll<DirectionType>()
+        // .ToList()
+        // .FindAll(d => Input.IsActionPressed(d.UiDirection))
+        // .ForEach(dir => velocity = dir.Direction.Move(velocity));
+
+        if (Position.DistanceTo(_target) > 10)
+        {
+            velocity = (_target - Position).Normalized() * Speed;
+        }
+        else
+        {
+            velocity = new Vector2();
+        }
 
         var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
@@ -47,10 +68,10 @@ public class Player : Area2D
         }
 
         Position += velocity * delta;
-        Position = new Vector2(
-            x: Mathf.Clamp(Position.x, 0, _screenSize.x),
-            y: Mathf.Clamp(Position.y, 0, _screenSize.y)
-        );
+        // Position = new Vector2(
+        //     x: Mathf.Clamp(Position.x, 0, _screenSize.x),
+        //     y: Mathf.Clamp(Position.y, 0, _screenSize.y)
+        // );
 
         if (velocity.y != 0)
         {
