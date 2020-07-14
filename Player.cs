@@ -1,6 +1,4 @@
 using Godot;
-using System.Linq;
-using Direction;
 
 public class Player : Area2D
 {
@@ -21,7 +19,7 @@ public class Player : Area2D
     public override void _Ready()
     {
         Hide();
-        _screenSize = GetViewport().GetSize();
+        _screenSize = GetViewport().Size;
 
         Connect("body_entered", this, nameof(OnPlayerBodyEntered));
     }

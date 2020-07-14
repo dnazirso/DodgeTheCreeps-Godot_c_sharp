@@ -67,7 +67,7 @@ public class Main : Node
     {
         // Choose a random location on Path2D.
         var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-        mobSpawnLocation.SetOffset(_random.Next());
+        mobSpawnLocation.Offset = _random.Next();
 
         // Create a Mob instance and add it to the scene.
         var mobInstance = (RigidBody2D)Mob.Instance();
@@ -84,7 +84,7 @@ public class Main : Node
         mobInstance.Rotation = direction;
 
         // Choose the velocity.
-        mobInstance.SetLinearVelocity(new Vector2(RandRange(150f, 250f), 0).Rotated(direction));
+        mobInstance.LinearVelocity = new Vector2(RandRange(150f, 250f), 0).Rotated(direction);
 
         GetNode("HUD").Connect("StartGame", mobInstance, "OnStartGame");
     }
